@@ -5,16 +5,27 @@
 //  Created by Terry Yiu on 1/20/25.
 //
 
+import NostrSDK
 import SwiftUI
 
 struct SigningPolicySelectionView: View {
+    let keypair: Keypair
+
     @State var signingPolicy: SigningPolicy = .basic
+
+    @State private var navigationDestinationPresented: Bool = false
 
     var body: some View {
         NavigationStack {
             Form {
                 Text("Select a signing policy", comment: "Title of view to select a signing policy.")
                     .font(.title)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .listRowInsets(EdgeInsets())
+                    .background(Color(UIColor.systemGroupedBackground))
+
+                Text("Should I approve Nostr events automatically or would you like to review them for each app?")
+                    .font(.caption)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .listRowInsets(EdgeInsets())
                     .background(Color(UIColor.systemGroupedBackground))
@@ -40,56 +51,22 @@ struct SigningPolicySelectionView: View {
                     }
                 )
 
-                NavigationLink(destination: SigningPolicyConfirmationView(signingPolicy: signingPolicy)) {
-                    Text("Done", comment: "Button to go to the next view that adds the user’s entered private key.")
-                }
+                Button("Done", action: {
+                    PrivateKeySecureStorage.shared.store(for: keypair)
+                    navigationDestinationPresented = true
+                })
+                .buttonStyle(.borderedProminent)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .listRowInsets(EdgeInsets())
+                .background(Color(UIColor.systemGroupedBackground))
+            }
+            .navigationDestination(isPresented: $navigationDestinationPresented) {
+                SigningPolicyConfirmationView(signingPolicy: signingPolicy)
             }
         }
     }
 }
 
-enum SigningPolicy: CaseIterable {
-    case basic
-    case manual
-
-    var name: String {
-        switch self {
-        case .basic:
-            return String(
-                localized: "Approve basic actions",
-                comment: "Name of event signing policy that approves basic actions."
-            )
-        case .manual:
-            return String(
-                localized: "Manually approve each app",
-                comment: "Name of event signing policy that requires manual approval to sign each event."
-            )
-        }
-    }
-
-    var description: String {
-        switch self {
-        case .basic:
-            return String(
-                localized:
-"""
-Recommended for most people. This policy will minimize the number of interruptions during your app usage.
-""",
-                comment: "Description of event signing policy that approves basic actions."
-            )
-        case .manual:
-            return String(
-                localized:
-"""
-Recommended for privacy-minded people who would like control over each app.
-Choosing this policy will prompt you to set a preference every time you try a new app.
-""",
-                comment: "Description of event signing policy that requires manual approval to sign each event."
-            )
-        }
-    }
-}
-
 #Preview {
-    SigningPolicySelectionView()
+    SigningPolicySelectionView(keypair: Keypair()!)
 }

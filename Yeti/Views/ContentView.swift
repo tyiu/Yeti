@@ -37,10 +37,12 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
             }
         }
+        .navigationTitle(String(localized: "Home", comment: "Navigation title of home view."))
+        .toolbar(removing: .title)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: SigningPolicyModel.self, inMemory: true)
 }

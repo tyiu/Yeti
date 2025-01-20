@@ -14,7 +14,7 @@ struct YetiApp: App {
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self
+            SigningPolicyModel.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

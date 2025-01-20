@@ -24,15 +24,18 @@ If I see an event I don’t recognize, I’ll ask you to review it.
 """,
                     comment: "Description of what the user should expect after selecting the basic signing policy."
                 )
+                .font(.caption)
             case .manual:
                 Text(
 """
-You’re set for now. You’ll need to come back here with every new app and approve some nostr events.
+You’re set for now. You’ll need to come back here with every new app and approve some Nostr events.
 """,
                     comment: "Description of what the user should expect after selecting the manual signing policy."
                 )
+                .font(.caption)
             }
         }
+        .toolbar(.hidden)
     }
 }
 

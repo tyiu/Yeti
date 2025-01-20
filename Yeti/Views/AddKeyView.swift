@@ -5,10 +5,15 @@
 //  Created by Terry Yiu on 1/19/25.
 //
 
+import Combine
+import NostrSDK
 import SwiftUI
 
 struct AddKeyView: View {
-    @State private var key: String = ""
+    @State private var keypair: Keypair?
+    @State private var nostrIdentifier: String = ""
+
+    @State private var navigationDestinationPresented: Bool = false
 
     var body: some View {
         NavigationStack {
@@ -26,8 +31,17 @@ struct AddKeyView: View {
                                 localized: "nsec / private key",
                                 comment: "Prompt asking user to enter in a Nostr private key."
                             ),
-                            text: $key
+                            text: $nostrIdentifier
                         )
+                        .autocorrectionDisabled(false)
+                        .textContentType(.password)
+                        .textInputAutocapitalization(.never)
+                        .onReceive(Just(nostrIdentifier)) { newValue in
+                            let filtered = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                            nostrIdentifier = filtered
+
+                            self.keypair = Keypair(nsec: filtered)
+                        }
                     },
                     footer: {
                         Text(
@@ -40,11 +54,25 @@ Footer text explaining that the private key is stored locally and only the user 
                     }
                 )
 
-                NavigationLink(destination: SigningPolicySelectionView()) {
-                    Text("Next", comment: "Button to go to the next view that adds the user’s entered private key.")
+                Button("Next", action: {
+                    navigationDestinationPresented = true
+                })
+                .disabled(!validPrivateKey)
+                .buttonStyle(.borderedProminent)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .listRowInsets(EdgeInsets())
+                .background(Color(UIColor.systemGroupedBackground))
+            }
+            .navigationDestination(isPresented: $navigationDestinationPresented) {
+                if let keypair {
+                    SigningPolicySelectionView(keypair: keypair)
                 }
             }
         }
+    }
+
+    private var validPrivateKey: Bool {
+        keypair != nil
     }
 }
 
