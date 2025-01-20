@@ -106,6 +106,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3AA480FA2D3DF10E0052A05C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3AA480BA2D3DECF10052A05C /* Yeti */,
@@ -128,6 +129,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3AA481002D3DF2080052A05C /* PBXTargetDependency */,
 				3AA480CC2D3DECF20052A05C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -151,6 +153,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3AA481022D3DF20D0052A05C /* PBXTargetDependency */,
 				3AA480D62D3DECF20052A05C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
@@ -195,6 +198,9 @@
 			);
 			mainGroup = 3AA480AF2D3DECF10052A05C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3AA480B92D3DECF10052A05C /* Products */;
 			projectDirPath = "";
@@ -265,6 +271,18 @@
 			isa = PBXTargetDependency;
 			target = 3AA480B72D3DECF10052A05C /* Yeti */;
 			targetProxy = 3AA480D52D3DECF20052A05C /* PBXContainerItemProxy */;
+		};
+		3AA480FA2D3DF10E0052A05C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 3AA480F92D3DF10E0052A05C /* SwiftLintBuildToolPlugin */;
+		};
+		3AA481002D3DF2080052A05C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 3AA480FF2D3DF2080052A05C /* SwiftLintBuildToolPlugin */;
+		};
+		3AA481022D3DF20D0052A05C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 3AA481012D3DF20D0052A05C /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -397,6 +415,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeti/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -425,6 +444,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Yeti/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -552,6 +572,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.58.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3AA480F92D3DF10E0052A05C /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		3AA480FF2D3DF2080052A05C /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		3AA481012D3DF20D0052A05C /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3AA480B02D3DECF10052A05C /* Project object */;
 }
