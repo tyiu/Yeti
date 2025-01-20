@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3AA481172D3ECDFD0052A05C /* NostrSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 3AA481162D3ECDFD0052A05C /* NostrSDK */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		3AA480CB2D3DECF20052A05C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA481172D3ECDFD0052A05C /* NostrSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +131,7 @@
 			);
 			name = Yeti;
 			packageProductDependencies = (
+				3AA481162D3ECDFD0052A05C /* NostrSDK */,
 			);
 			productName = Yeti;
 			productReference = 3AA480B82D3DECF10052A05C /* Yeti.app */;
@@ -213,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				3AA481152D3ECDFD0052A05C /* XCRemoteSwiftPackageReference "nostr-sdk-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3AA480B92D3DECF10052A05C /* Products */;
@@ -599,6 +606,14 @@
 				minimumVersion = 0.58.2;
 			};
 		};
+		3AA481152D3ECDFD0052A05C /* XCRemoteSwiftPackageReference "nostr-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nostr-sdk/nostr-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -616,6 +631,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3AA480F82D3DF0820052A05C /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		3AA481162D3ECDFD0052A05C /* NostrSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3AA481152D3ECDFD0052A05C /* XCRemoteSwiftPackageReference "nostr-sdk-ios" */;
+			productName = NostrSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
