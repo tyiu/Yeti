@@ -1,0 +1,57 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Add a key" : {
+      "comment" : "Button to add a key."
+    },
+    "Add your key" : {
+      "comment" : "Title of view to add the user’s private key."
+    },
+    "Approve basic actions" : {
+      "comment" : "Name of event signing policy that approves basic actions."
+    },
+    "Create a key" : {
+      "comment" : "Button to create a key."
+    },
+    "Done" : {
+      "comment" : "Button to go to the next view that adds the user's entered private key."
+    },
+    "Got it!" : {
+      "comment" : "Button to go to the next view that adds the user’s entered private key."
+    },
+    "Hooo-raaaayyy!" : {
+      "comment" : "Title of view that confirms the user’s selection of the signing policy."
+    },
+    "Manually approve each app" : {
+      "comment" : "Name of event signing policy that requires manual approval to sign each event."
+    },
+    "Next" : {
+      "comment" : "Button to go to the next view that adds the user’s entered private key."
+    },
+    "nsec / private key" : {
+      "comment" : "Prompt asking user to enter in a Nostr private key."
+    },
+    "Recommended for most people. This policy will minimize the number of interruptions during your app usage." : {
+      "comment" : "Description of event signing policy that approves basic actions."
+    },
+    "Recommended for privacy-minded people who would like control over each app.\nChoosing this policy will prompt you to set a preference every time you try a new app." : {
+      "comment" : "Description of event signing policy that requires manual approval to sign each event."
+    },
+    "Select a signing policy" : {
+      "comment" : "Title of view to select a signing policy."
+    },
+    "Yeti: Nostr Helper" : {
+      "comment" : "Application title."
+    },
+    "You’re all set! I’ll take care of most of the approval for you.\nIf I see an event I don’t recognize, I’ll ask you to review it." : {
+      "comment" : "Description of what the user should expect after selecting the basic signing policy."
+    },
+    "You’re set for now. You’ll need to come back here with every new app and approve some nostr events." : {
+      "comment" : "Description of what the user should expect after selecting the manual signing policy."
+    },
+    "Your private key is stored locally. Only you can see it." : {
+      "comment" : "Footer text explaining that the private key is stored locally and only the user can see it."
+    }
+  },
+  "version" : "1.0"
+}
