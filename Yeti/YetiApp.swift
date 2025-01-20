@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct YetiApp: App {
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self
