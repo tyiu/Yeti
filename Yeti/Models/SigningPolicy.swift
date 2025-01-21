@@ -1,21 +1,11 @@
 //
-//  SigningPolicyModel.swift
+//  SigningPolicy.swift
 //  Yeti
 //
 //  Created by Terry Yiu on 1/20/25.
 //
 
 import Foundation
-import SwiftData
-
-@Model
-final class SigningPolicyModel {
-    var signingPolicy: SigningPolicy
-
-    init(signingPolicy: SigningPolicy) {
-        self.signingPolicy = signingPolicy
-    }
-}
 
 enum SigningPolicy: Int, Codable, CaseIterable {
     case basic = 0

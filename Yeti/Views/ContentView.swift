@@ -19,5 +19,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: SigningPolicyModel.self, inMemory: true)
+        .modelContainer(for: ProfileSettingsModel.self, inMemory: true)
 }
