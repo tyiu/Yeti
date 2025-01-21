@@ -24,11 +24,14 @@ struct SigningPolicySelectionView: View {
                     .listRowInsets(EdgeInsets())
                     .background(Color(UIColor.systemGroupedBackground))
 
-                Text("Should I approve Nostr events automatically or would you like to review them for each app?")
-                    .font(.caption)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .listRowInsets(EdgeInsets())
-                    .background(Color(UIColor.systemGroupedBackground))
+                Text(
+                    "Should I approve Nostr events automatically or would you like to review them for each app?",
+                    comment: "Prompt asking user which signing policy to use."
+                )
+                .font(.caption)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .listRowInsets(EdgeInsets())
+                .background(Color(UIColor.systemGroupedBackground))
 
                 Section(
                     content: {

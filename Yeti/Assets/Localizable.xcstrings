@@ -16,8 +16,11 @@
     "Done" : {
       "comment" : "Button to go to the next view that adds the user’s entered private key."
     },
+    "History" : {
+      "comment" : "Title for History tab"
+    },
     "Home" : {
-      "comment" : "Navigation title of home view."
+      "comment" : "Navigation title of home view.\nTitle for Home tab"
     },
     "Hooo-raaaayyy!" : {
       "comment" : "Title of view that confirms the user’s selection of the signing policy."
@@ -31,6 +34,9 @@
     "nsec / private key" : {
       "comment" : "Prompt asking user to enter in a Nostr private key."
     },
+    "Permissions" : {
+      "comment" : "Title for Permissions tab"
+    },
     "Recommended for most people. This policy will minimize the number of interruptions during your app usage." : {
       "comment" : "Description of event signing policy that approves basic actions."
     },
@@ -40,8 +46,11 @@
     "Select a signing policy" : {
       "comment" : "Title of view to select a signing policy."
     },
+    "Settings" : {
+      "comment" : "Title for Settings tab"
+    },
     "Should I approve Nostr events automatically or would you like to review them for each app?" : {
-
+      "comment" : "Prompt asking user which signing policy to use."
     },
     "Yeti: Nostr Helper" : {
       "comment" : "Application title."
