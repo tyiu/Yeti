@@ -14,25 +14,25 @@
       "comment" : "Button to create a key."
     },
     "Decrypt DMs" : {
-
+      "comment" : "Permission toggle to allow Nostr client to decrypt direct messages."
     },
     "Decrypt legacy DMs" : {
-
+      "comment" : "Permission toggle to allow Nostr client to decrypt legacy direct messages."
     },
     "Decrypt zap events" : {
-
+      "comment" : "Permission toggle to allow Nostr client to decrypt zap events."
     },
     "Done" : {
       "comment" : "Button to go to the next view that adds the user’s entered private key."
     },
     "Encrypt DMs" : {
-
+      "comment" : "Permission toggle to allow Nostr client to encrypt direct messages."
     },
     "Encrypt legacy DMs" : {
-
+      "comment" : "Permission toggle to allow Nostr client to encrypt legacy direct messages."
     },
     "Get relays" : {
-
+      "comment" : "Permission toggle to allow Nostr client to get relays."
     },
     "History" : {
       "comment" : "Title for History tab"
@@ -56,7 +56,7 @@
       "comment" : "Title for Permissions tab"
     },
     "Read your profile" : {
-
+      "comment" : "Permission toggle to allow Nostr client to read your profile."
     },
     "Recommended for most people. This policy will minimize the number of interruptions during your app usage." : {
       "comment" : "Description of event signing policy that approves basic actions."
@@ -74,7 +74,7 @@
       "comment" : "Prompt asking user which signing policy to use."
     },
     "Sign kind %@ events" : {
-
+      "comment" : "Permission toggle to allow Nostr client to sign events of a specific kind.."
     },
     "Yeti: Nostr Helper" : {
       "comment" : "Application title."
