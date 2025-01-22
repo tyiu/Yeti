@@ -5,10 +5,17 @@
 //  Created by Terry Yiu on 1/20/25.
 //
 
+import NostrSDK
+import SwiftData
 import SwiftUI
 
 struct SigningPolicyConfirmationView: View {
+    let keypair: Keypair
     let signingPolicy: SigningPolicy
+
+    @Environment(\.modelContext) private var modelContext
+
+    @Query private var generalSettingsModels: [GeneralSettingsModel]
 
     var body: some View {
         VStack {
@@ -34,11 +41,25 @@ You’re set for now. You’ll need to come back here with every new app and app
                 )
                 .font(.caption)
             }
+
+            Button("Done", action: {
+                PrivateKeySecureStorage.shared.store(for: keypair)
+
+                let profileSettingsModel = ProfileSettingsModel(publicKey: keypair.publicKey.hex)
+                profileSettingsModel.signingPolicy = signingPolicy
+                modelContext.insert(profileSettingsModel)
+
+                generalSettingsModels.first!.activePublicKey = keypair.publicKey.hex
+            })
+            .buttonStyle(.borderedProminent)
         }
         .toolbar(.hidden)
     }
 }
 
 #Preview {
-    SigningPolicyConfirmationView(signingPolicy: .basic)
+    SigningPolicyConfirmationView(
+        keypair: Keypair()!,
+        signingPolicy: .basic
+    )
 }

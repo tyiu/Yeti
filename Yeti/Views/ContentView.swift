@@ -10,10 +10,16 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Query var generalSettingsModels: [GeneralSettingsModel]
 
     var body: some View {
-//        OnboardingView()
-        LoggedInView()
+        Group {
+            if generalSettingsModels.first!.activePublicKey == nil {
+                OnboardingView()
+            } else {
+                LoggedInView()
+            }
+        }
     }
 }
 

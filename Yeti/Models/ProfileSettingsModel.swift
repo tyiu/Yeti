@@ -13,6 +13,7 @@ final class ProfileSettingsModel {
     @Attribute(.unique) var publicKey: String
 
     var nostrClientModels: [NostrClientModel] = []
+    var signingPolicy: SigningPolicy?
 
     init(publicKey: String) {
         self.publicKey = publicKey

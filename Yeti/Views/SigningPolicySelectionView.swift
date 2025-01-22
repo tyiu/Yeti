@@ -55,7 +55,6 @@ struct SigningPolicySelectionView: View {
                 )
 
                 Button("Done", action: {
-                    PrivateKeySecureStorage.shared.store(for: keypair)
                     navigationDestinationPresented = true
                 })
                 .buttonStyle(.borderedProminent)
@@ -64,7 +63,7 @@ struct SigningPolicySelectionView: View {
                 .background(Color(UIColor.systemGroupedBackground))
             }
             .navigationDestination(isPresented: $navigationDestinationPresented) {
-                SigningPolicyConfirmationView(signingPolicy: signingPolicy)
+                SigningPolicyConfirmationView(keypair: keypair, signingPolicy: signingPolicy)
             }
         }
     }
