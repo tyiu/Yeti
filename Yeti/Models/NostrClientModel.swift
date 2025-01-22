@@ -16,13 +16,13 @@ final class NostrClientModel {
 
     var signingPolicy: SigningPolicy?
 
-    var readPublicKeyPermission: Bool?
-    var nip04EncryptPermission: Bool?
-    var nip44EncryptPermission: Bool?
-    var nip04DencryptPermission: Bool?
-    var nip44DencryptPermission: Bool?
-    var getRelaysPermission: Bool?
-    var decryptZapEventPermission: Bool?
+    var readPublicKeyPermission: Bool = false
+    var nip04EncryptPermission: Bool = false
+    var nip44EncryptPermission: Bool = false
+    var nip04DecryptPermission: Bool = false
+    var nip44DecryptPermission: Bool = false
+    var getRelaysPermission: Bool = false
+    var decryptZapEventPermission: Bool = false
 
     init(id: String) {
         self.id = id
