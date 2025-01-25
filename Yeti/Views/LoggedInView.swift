@@ -5,9 +5,13 @@
 //  Created by Terry Yiu on 1/20/25.
 //
 
+import NostrSDK
+import SwiftData
 import SwiftUI
 
 struct LoggedInView: View {
+    let publicKey: String
+
     @State var selectedTab: YetiTab = .home
 
     var body: some View {
@@ -18,7 +22,7 @@ struct LoggedInView: View {
                     case .home:
                         HomeView()
                     case .permissions:
-                        PermissionsView()
+                        PermissionsView(publicKey: publicKey)
                     case .history:
                         HistoryView()
                     case .settings:
@@ -64,5 +68,5 @@ enum YetiTab: CustomStringConvertible, CaseIterable {
 }
 
 #Preview {
-    LoggedInView()
+    LoggedInView(publicKey: Keypair()!.publicKey.hex)
 }

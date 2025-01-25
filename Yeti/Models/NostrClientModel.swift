@@ -10,11 +10,9 @@ import SwiftData
 
 @Model
 final class NostrClientModel {
-    @Attribute(.unique) var id: String
+    @Attribute(.unique) var name: String
 
     @Relationship(deleteRule: .cascade) var signEventPermissions: [SignEventPermissionModel] = []
-
-    var signingPolicy: SigningPolicy?
 
     var readPublicKeyPermission: Bool = false
     var nip04EncryptPermission: Bool = false
@@ -24,7 +22,7 @@ final class NostrClientModel {
     var getRelaysPermission: Bool = false
     var decryptZapEventPermission: Bool = false
 
-    init(id: String) {
-        self.id = id
+    init(name: String) {
+        self.name = name
     }
 }

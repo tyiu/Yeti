@@ -49,7 +49,7 @@ You’re set for now. You’ll need to come back here with every new app and app
                 profileSettingsModel.signingPolicy = signingPolicy
                 modelContext.insert(profileSettingsModel)
 
-                generalSettingsModels.first!.activePublicKey = keypair.publicKey.hex
+                generalSettingsModels.first?.activePublicKey = keypair.publicKey.hex
             })
             .buttonStyle(.borderedProminent)
         }

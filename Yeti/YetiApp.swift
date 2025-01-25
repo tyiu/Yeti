@@ -17,7 +17,8 @@ struct YetiApp: App {
     init() {
         let schema = Schema([
             GeneralSettingsModel.self,
-            ProfileSettingsModel.self
+            ProfileSettingsModel.self,
+            SignerRequestModel.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum SigningPolicy: Int, Codable, CaseIterable {
-    case basic = 0
-    case manual = 1
+enum SigningPolicy: Codable, CaseIterable {
+    case basic
+    case manual
 
     var name: String {
         switch self {

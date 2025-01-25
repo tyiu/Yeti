@@ -11,82 +11,82 @@ import SwiftUI
 struct NostrClientView: View {
     @Query private var nostrClientModels: [NostrClientModel]
 
-    init(nostrClientModelId: String) {
-        self._nostrClientModels = Query(filter: #Predicate<NostrClientModel> {
-            $0.id == nostrClientModelId
-        })
+    init(nostrClientModelName: String) {
+        self._nostrClientModels = Query(filter: NostrClientModel.predicateByName(nostrClientModelName))
     }
 
-    var nostrClientModel: NostrClientModel {
-        nostrClientModels.first!
+    var nostrClientModel: NostrClientModel? {
+        nostrClientModels.first
     }
 
     var body: some View {
         VStack {
-            let bindableNostrClientModel = Bindable(nostrClientModel)
+            if let nostrClientModel {
+                let bindableNostrClientModel = Bindable(nostrClientModel)
 
-            Text(bindableNostrClientModel.id)
-                .font(.headline)
+                Text(bindableNostrClientModel.name.wrappedValue)
+                    .font(.headline)
 
-            List {
-                Toggle(
-                    String(
-                        localized: "Read your profile",
-                        comment: "Permission toggle to allow Nostr client to read your profile."
-                    ),
-                    isOn: bindableNostrClientModel.readPublicKeyPermission
-                )
-                Toggle(
-                    String(
-                        localized: "Get relays",
-                        comment: "Permission toggle to allow Nostr client to get relays."
-                    ),
-                    isOn: bindableNostrClientModel.getRelaysPermission
-                )
-                Toggle(
-                    String(
-                        localized: "Encrypt DMs",
-                        comment: "Permission toggle to allow Nostr client to encrypt direct messages."
-                    ),
-                    isOn: bindableNostrClientModel.nip44EncryptPermission
-                )
-                Toggle(
-                    String(
-                        localized: "Decrypt DMs",
-                        comment: "Permission toggle to allow Nostr client to decrypt direct messages."
-                    ),
-                    isOn: bindableNostrClientModel.nip44DecryptPermission
-                )
-                Toggle(
-                    String(
-                        localized: "Encrypt legacy DMs",
-                        comment: "Permission toggle to allow Nostr client to encrypt legacy direct messages."
-                    ),
-                    isOn: bindableNostrClientModel.nip04EncryptPermission
-                )
-                Toggle(
-                    String(
-                        localized: "Decrypt legacy DMs",
-                        comment: "Permission toggle to allow Nostr client to decrypt legacy direct messages."
-                    ),
-                    isOn: bindableNostrClientModel.nip04DecryptPermission
-                )
-                Toggle(
-                    String(
-                        localized: "Decrypt zap events",
-                        comment: "Permission toggle to allow Nostr client to decrypt zap events."
-                    ),
-                    isOn: bindableNostrClientModel.decryptZapEventPermission
-                )
-
-                ForEach(bindableNostrClientModel.signEventPermissions, id: \.self) { signEventPermissionModel in
+                List {
                     Toggle(
                         String(
-                            localized: "Sign kind \(signEventPermissionModel.kind.wrappedValue.description) events",
-                            comment: "Permission toggle to allow Nostr client to sign events of a specific kind.."
+                            localized: "Read your profile",
+                            comment: "Permission toggle to allow Nostr client to read your profile."
                         ),
-                        isOn: signEventPermissionModel.allowed
+                        isOn: bindableNostrClientModel.readPublicKeyPermission
                     )
+                    Toggle(
+                        String(
+                            localized: "Get relays",
+                            comment: "Permission toggle to allow Nostr client to get relays."
+                        ),
+                        isOn: bindableNostrClientModel.getRelaysPermission
+                    )
+                    Toggle(
+                        String(
+                            localized: "Encrypt DMs",
+                            comment: "Permission toggle to allow Nostr client to encrypt direct messages."
+                        ),
+                        isOn: bindableNostrClientModel.nip44EncryptPermission
+                    )
+                    Toggle(
+                        String(
+                            localized: "Decrypt DMs",
+                            comment: "Permission toggle to allow Nostr client to decrypt direct messages."
+                        ),
+                        isOn: bindableNostrClientModel.nip44DecryptPermission
+                    )
+                    Toggle(
+                        String(
+                            localized: "Encrypt legacy DMs",
+                            comment: "Permission toggle to allow Nostr client to encrypt legacy direct messages."
+                        ),
+                        isOn: bindableNostrClientModel.nip04EncryptPermission
+                    )
+                    Toggle(
+                        String(
+                            localized: "Decrypt legacy DMs",
+                            comment: "Permission toggle to allow Nostr client to decrypt legacy direct messages."
+                        ),
+                        isOn: bindableNostrClientModel.nip04DecryptPermission
+                    )
+                    Toggle(
+                        String(
+                            localized: "Decrypt zap events",
+                            comment: "Permission toggle to allow Nostr client to decrypt zap events."
+                        ),
+                        isOn: bindableNostrClientModel.decryptZapEventPermission
+                    )
+
+                    ForEach(bindableNostrClientModel.signEventPermissions, id: \.self) { signEventPermissionModel in
+                        Toggle(
+                            String(
+                                localized: "Sign kind \(signEventPermissionModel.kind.wrappedValue.description) events",
+                                comment: "Permission toggle to allow Nostr client to sign events of a specific kind.."
+                            ),
+                            isOn: signEventPermissionModel.approved
+                        )
+                    }
                 }
             }
         }
@@ -94,13 +94,13 @@ struct NostrClientView: View {
 }
 
 extension NostrClientModel {
-    static func predicateById(_ id: String) -> Predicate<NostrClientModel> {
+    static func predicateByName(_ name: String) -> Predicate<NostrClientModel> {
         #Predicate<NostrClientModel> { nostrClientModel in
-            nostrClientModel.id == id
+            nostrClientModel.name == name
         }
     }
 }
 
 #Preview {
-    NostrClientView(nostrClientModelId: UUID().uuidString)
+    NostrClientView(nostrClientModelName: UUID().uuidString)
 }

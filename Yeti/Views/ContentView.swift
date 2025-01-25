@@ -14,10 +14,10 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if generalSettingsModels.first!.activePublicKey == nil {
-                OnboardingView()
+            if let activePublicKey = generalSettingsModels.first?.activePublicKey {
+                LoggedInView(publicKey: activePublicKey)
             } else {
-                LoggedInView()
+                OnboardingView()
             }
         }
     }
@@ -25,5 +25,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: ProfileSettingsModel.self, inMemory: true)
+        .modelContainer(for: GeneralSettingsModel.self, inMemory: true)
 }

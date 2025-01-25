@@ -6,9 +6,29 @@
 //
 
 import Foundation
+import SwiftData
 import UIKit
 
 class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
+    private static let nostrSignerURLScheme = "nostrsigner"
+
+    private let modelContainer: ModelContainer
+
+    override init() {
+        let schema = Schema([
+            GeneralSettingsModel.self,
+            ProfileSettingsModel.self,
+            SignerRequestModel.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }
+
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -26,32 +46,29 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
     }
 
     private func scene(_ scene: UIScene, openURLContext: UIOpenURLContext) {
-        let sendingAppID = openURLContext.options.sourceApplication
-        let url = openURLContext.url
+        var generalSettingsModelDescriptor = FetchDescriptor<GeneralSettingsModel>()
+        generalSettingsModelDescriptor.fetchLimit = 1
 
-        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
-              components.scheme == "nostrsigner",
-              let queryItems = components.queryItems else {
-            print("Invalid URL or path missing")
+        guard let generalSettingsModel = try? modelContainer.mainContext.fetch(generalSettingsModelDescriptor).first,
+              let activePublicKey = generalSettingsModel.activePublicKey
+        else {
             return
         }
 
-        print("source application = \(sendingAppID ?? "Unknown")")
-        print("url = \(url)")
+        let sourceApplication = openURLContext.options.sourceApplication
+        let url = openURLContext.url
 
-        if let path = components.path {
-            print("path = \(path)")
+        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+              components.scheme == SceneDelegate.nostrSignerURLScheme,
+              let queryItems = components.queryItems else {
+            print("Invalid URL or path missing. \(url.absoluteString)")
+            return
         }
-        if let host = components.host {
-            print("host = \(host)")
-        }
-
-        print("queryItems = \(queryItems)")
 
         let params = queryItems.reduce(into: [:]) { $0[$1.name] = $1.value }
 
         let compressionType: NostrSignerCompressionType
-        if let rawCompressionType = params["compressionType"] {
+        if let rawCompressionType = params[NostrSignerURLQueryItemName.compressionType.rawValue] {
             if let maybeCompressionType = NostrSignerCompressionType(rawValue: rawCompressionType) {
                 compressionType = maybeCompressionType
             } else {
@@ -61,44 +78,52 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
             compressionType = .none
         }
 
-        guard let rawType = params["type"],
+        guard let rawType = params[NostrSignerURLQueryItemName.type.rawValue],
               let type = NostrSignerType(rawValue: rawType),
-              let rawReturnType = params["returnType"],
-              let returnType = NostrSignerReturnType(rawValue: rawReturnType) else {
+              let rawReturnType = params[NostrSignerURLQueryItemName.returnType.rawValue],
+              let returnType = NostrSignerReturnType(rawValue: rawReturnType)
+        else {
             return
         }
 
-        print("type = \(type)")
-        print("returnType = \(returnType)")
-        print("compressionType = \(compressionType)")
+        let callbackURLString = params[NostrSignerURLQueryItemName.callbackURL.rawValue]
+        let targetApplication = targetApplication(callbackURLString)
 
-        if let pubkey = params["pubkey"] {
-            print("pubkey = \(pubkey)")
-        }
+        let pubkey = params[NostrSignerURLQueryItemName.pubkey.rawValue]
 
-        if let callbackURL = params["callbackUrl"] {
-            print("callbackURL = \(callbackURL)")
+        let signerRequestModel = SignerRequestModel(
+            type: type,
+            returnType: returnType,
+            compressionType: compressionType,
+            createdAt: Date.now,
+            callbackURL: callbackURLString,
+            pubkey: pubkey,
+            sourceApplication: sourceApplication,
+            targetApplication: targetApplication
+        )
+
+        modelContainer.mainContext.insert(signerRequestModel)
+    }
+
+    private func targetApplication(_ callbackURLString: String?) -> String? {
+        if let callbackURLString, let callbackURL = URL(string: callbackURLString) {
+            if let scheme = callbackURL.scheme {
+                let lowercasedScheme = scheme.lowercased()
+                if lowercasedScheme == "http" || lowercasedScheme == "https" {
+                    return callbackURL.host()
+                } else {
+                    return lowercasedScheme
+                }
+            }
         }
+        return nil
     }
 }
 
-enum NostrSignerType: String, CaseIterable {
-    case getPublicKey = "get_public_key"
-    case signEvent = "sign_event"
-    case nip04Encrypt = "nip04_encrypt"
-    case nip44Encrypt = "nip44_encrypt"
-    case nip04Decrypt = "nip04_decrypt"
-    case nip44Decrypt = "nip44_decrypt"
-    case getRelays = "get_relays"
-    case decryptZapEvent = "decrypt_zap_event"
-}
-
-enum NostrSignerReturnType: String, CaseIterable {
-    case signature
-    case event
-}
-
-enum NostrSignerCompressionType: String, CaseIterable {
-    case none
-    case gzip
+private enum NostrSignerURLQueryItemName: String {
+    case callbackURL = "callbackUrl"
+    case compressionType
+    case pubkey
+    case returnType
+    case type
 }

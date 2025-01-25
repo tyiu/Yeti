@@ -19,3 +19,11 @@ final class ProfileSettingsModel {
         self.publicKey = publicKey
     }
 }
+
+extension ProfileSettingsModel {
+    static func predicateByPublicKey(_ publicKey: String) -> Predicate<ProfileSettingsModel> {
+        #Predicate<ProfileSettingsModel> { profileSettingsModel in
+            profileSettingsModel.publicKey == publicKey
+        }
+    }
+}

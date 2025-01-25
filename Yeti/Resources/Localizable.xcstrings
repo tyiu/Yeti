@@ -7,8 +7,14 @@
     "Add your key" : {
       "comment" : "Title of view to add the user’s private key."
     },
+    "Allow" : {
+      "comment" : "Button to allow a permission request."
+    },
     "Approve basic actions" : {
       "comment" : "Name of event signing policy that approves basic actions."
+    },
+    "Approved: %@" : {
+      "comment" : "Text indicating that a signer request is either approved or not approved."
     },
     "Create a key" : {
       "comment" : "Button to create a key."
@@ -21,6 +27,9 @@
     },
     "Decrypt zap events" : {
       "comment" : "Permission toggle to allow Nostr client to decrypt zap events."
+    },
+    "Deny" : {
+      "comment" : "Button to deny a permission request."
     },
     "Done" : {
       "comment" : "Button to go to the next view that adds the user’s entered private key."
@@ -49,8 +58,14 @@
     "Next" : {
       "comment" : "Button to go to the next view that adds the user’s entered private key."
     },
+    "Nothing to approve yet" : {
+      "comment" : "Text on Home tab to indicate that there are no permission requests to review for approval."
+    },
     "nsec / private key" : {
       "comment" : "Prompt asking user to enter in a Nostr private key."
+    },
+    "Pending" : {
+      "comment" : "Text indicating that a signer request is pending approval."
     },
     "Permissions" : {
       "comment" : "Title for Permissions tab"
@@ -75,6 +90,9 @@
     },
     "Sign kind %@ events" : {
       "comment" : "Permission toggle to allow Nostr client to sign events of a specific kind.."
+    },
+    "Why not explore your favorite Nostr app a bit?" : {
+      "comment" : "Text on Home tab to suggest what the user could do instead\nsince there are no permission requests to review for approval."
     },
     "Yeti: Nostr Helper" : {
       "comment" : "Application title."

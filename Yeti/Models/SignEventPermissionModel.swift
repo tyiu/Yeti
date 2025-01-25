@@ -11,10 +11,10 @@ import SwiftData
 @Model
 final class SignEventPermissionModel {
     var kind: Int
-    var allowed: Bool
+    var approved: Bool
 
-    init(kind: Int, allowed: Bool) {
+    init(kind: Int, approved: Bool) {
         self.kind = kind
-        self.allowed = allowed
+        self.approved = approved
     }
 }
