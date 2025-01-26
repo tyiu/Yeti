@@ -5,6 +5,7 @@
 //  Created by Terry Yiu on 1/19/25.
 //
 
+import NostrSDK
 import SwiftUI
 import SwiftData
 
@@ -15,23 +16,16 @@ struct YetiApp: App {
     private let modelContainer: ModelContainer
 
     init() {
-        let schema = Schema([
-            GeneralSettingsModel.self,
-            ProfileSettingsModel.self,
-            SignerRequestModel.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
+        modelContainer = createYetiModelContainer()
 
         var descriptor = FetchDescriptor<GeneralSettingsModel>()
         descriptor.fetchLimit = 1
 
-        if (try? modelContainer.mainContext.fetch(descriptor))?.first == nil {
+        if let generalSettingsModel = (try? modelContainer.mainContext.fetch(descriptor))?.first,
+           let activePublicKey = generalSettingsModel.activePublicKey,
+           let publicKey = PublicKey(hex: activePublicKey) {
+            print("Found pubkey=\(PrivateKeySecureStorage.shared.keypair(for: publicKey)?.publicKey.npub ?? "")")
+        } else {
             let newGeneralSettingsModel = GeneralSettingsModel()
             modelContainer.mainContext.insert(newGeneralSettingsModel)
             do {

@@ -15,18 +15,7 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
     private let modelContainer: ModelContainer
 
     override init() {
-        let schema = Schema([
-            GeneralSettingsModel.self,
-            ProfileSettingsModel.self,
-            SignerRequestModel.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
+        modelContainer = createYetiModelContainer()
     }
 
     func scene(

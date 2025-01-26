@@ -13,6 +13,7 @@ class PrivateKeySecureStorage {
     static let shared = PrivateKeySecureStorage()
 
     private let service = "yeti-private-keys"
+    private let accessGroup = "S99A5B637C.xyz.tyiu.Yeti.SharedKeychain"
 
     func keypair(for publicKey: PublicKey) -> Keypair? {
         let query = [
@@ -20,7 +21,8 @@ class PrivateKeySecureStorage {
             kSecAttrAccount: publicKey.hex,
             kSecClass: kSecClassGenericPassword,
             kSecReturnData: true,
-            kSecMatchLimit: kSecMatchLimitOne
+            kSecMatchLimit: kSecMatchLimitOne,
+            kSecAttrAccessGroup: accessGroup
         ] as [CFString: Any] as CFDictionary
 
         var result: AnyObject?
@@ -40,16 +42,19 @@ class PrivateKeySecureStorage {
             kSecAttrService: service,
             kSecAttrAccount: keypair.publicKey.hex,
             kSecClass: kSecClassGenericPassword,
-            kSecValueData: keypair.privateKey.hex.data(using: .utf8) as Any
+            kSecValueData: keypair.privateKey.hex.data(using: .utf8) as Any,
+            kSecAttrAccessGroup: accessGroup
         ] as [CFString: Any] as CFDictionary
 
         var status = SecItemAdd(query, nil)
 
-        if status == errSecDuplicateItem {
+        switch status {
+        case errSecDuplicateItem:
             let query = [
                 kSecAttrService: service,
                 kSecAttrAccount: keypair.publicKey.hex,
-                kSecClass: kSecClassGenericPassword
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrAccessGroup: accessGroup
             ] as [CFString: Any] as CFDictionary
 
             let updates = [
@@ -57,6 +62,12 @@ class PrivateKeySecureStorage {
             ] as CFDictionary
 
             status = SecItemUpdate(query, updates)
+        case errSecSuccess:
+            print("Successfully stored keypair.")
+        case errSecMissingEntitlement:
+            print("Missing entitlement error while storing keypair.")
+        default:
+            print("Error storing keypair: \(status)")
         }
     }
 
@@ -64,7 +75,8 @@ class PrivateKeySecureStorage {
         let query = [
             kSecAttrService: service,
             kSecAttrAccount: publicKey.hex,
-            kSecClass: kSecClassGenericPassword
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccessGroup: accessGroup
         ] as [CFString: Any] as CFDictionary
 
         _ = SecItemDelete(query)
