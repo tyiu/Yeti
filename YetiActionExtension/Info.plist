@@ -22,10 +22,10 @@
 			<key>NSExtensionServiceTouchBarIconName</key>
 			<string>NSActionTemplate</string>
 		</dict>
-		<key>NSExtensionPrincipalClass</key>
-		<string>YetiSignerAction.YetiSignerActionViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.ui-services</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>YetiActionExtension.YetiActionExtensionViewController</string>
 	</dict>
 </dict>
 </plist>

@@ -1,16 +1,15 @@
 //
-//  YetiSignerActionViewController.swift
-//  YetiSignerAction
+//  YetiActionExtensionViewController.swift
+//  YetiActionExtension
 //
 //  Created by Terry Yiu on 1/26/25.
 //
 
-//import MobileCoreServices
 import SwiftUI
 import UIKit
 import UniformTypeIdentifiers
 
-class YetiSignerActionViewController: UIViewController {
+class YetiActionExtensionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +37,7 @@ class YetiSignerActionViewController: UIViewController {
 
             if let text = providedText as? String {
                 DispatchQueue.main.async {
-                    let contentView = UIHostingController(rootView: YetiSignerActionView(text: text))
+                    let contentView = UIHostingController(rootView: YetiActionExtensionView(text: text))
                     self.addChild(contentView)
                     self.view.addSubview(contentView.view)
 

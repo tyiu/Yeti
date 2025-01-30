@@ -1,6 +1,6 @@
 //
-//  YetiSignerActionView.swift
-//  YetiSignerAction
+//  YetiActionExtensionView.swift
+//  YetiActionExtension
 //
 //  Created by Terry Yiu on 1/26/25.
 //
@@ -8,7 +8,7 @@
 import NostrSDK
 import SwiftUI
 
-struct YetiSignerActionView: View {
+struct YetiActionExtensionView: View {
     @State private var text: String
     @State private var result: String = ""
 
@@ -50,5 +50,5 @@ struct YetiSignerActionView: View {
 }
 
 #Preview {
-    YetiSignerActionView(text: "Hello, world!")
+    YetiActionExtensionView(text: "Hello, world!")
 }
