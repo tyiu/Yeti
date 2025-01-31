@@ -16,7 +16,8 @@ struct HistoryView: View {
             ForEach(signerRequestModels, id: \.self) { signerRequestModel in
                 Section {
                     VStack {
-                        Text(signerRequestModel.type.rawValue)
+                        Text(signerRequestModel.command.rawValue)
+                        Text(signerRequestModel.requestType.rawValue)
                         Text(signerRequestModel.returnType.rawValue)
                         Text(signerRequestModel.compressionType.rawValue)
                         Text(signerRequestModel.createdAt.description)

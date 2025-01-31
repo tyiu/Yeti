@@ -67,8 +67,8 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
             compressionType = .none
         }
 
-        guard let rawType = params[NostrSignerURLQueryItemName.type.rawValue],
-              let type = NostrSignerType(rawValue: rawType),
+        guard let rawCommand = params[NostrSignerURLQueryItemName.type.rawValue],
+              let command = NostrSignerCommand(rawValue: rawCommand),
               let rawReturnType = params[NostrSignerURLQueryItemName.returnType.rawValue],
               let returnType = NostrSignerReturnType(rawValue: rawReturnType)
         else {
@@ -81,7 +81,8 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate, ObservableObject {
         let pubkey = params[NostrSignerURLQueryItemName.pubkey.rawValue]
 
         let signerRequestModel = SignerRequestModel(
-            type: type,
+            command: command,
+            requestType: .nostrSignerUrlScheme,
             returnType: returnType,
             compressionType: compressionType,
             createdAt: Date.now,

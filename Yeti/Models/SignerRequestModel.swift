@@ -10,7 +10,8 @@ import SwiftData
 
 @Model
 final class SignerRequestModel {
-    var type: NostrSignerType
+    var command: NostrSignerCommand
+    var requestType: NostrSignerRequestType
     var returnType: NostrSignerReturnType
     var compressionType: NostrSignerCompressionType
     var createdAt: Date
@@ -22,7 +23,8 @@ final class SignerRequestModel {
     var decidedAt: Date?
 
     init(
-        type: NostrSignerType,
+        command: NostrSignerCommand,
+        requestType: NostrSignerRequestType,
         returnType: NostrSignerReturnType,
         compressionType: NostrSignerCompressionType,
         createdAt: Date,
@@ -33,7 +35,8 @@ final class SignerRequestModel {
         approved: Bool? = nil,
         decidedAt: Date? = nil
     ) {
-        self.type = type
+        self.command = command
+        self.requestType = requestType
         self.returnType = returnType
         self.compressionType = compressionType
         self.createdAt = createdAt
@@ -46,7 +49,7 @@ final class SignerRequestModel {
     }
 }
 
-enum NostrSignerType: String, Codable, CaseIterable {
+enum NostrSignerCommand: String, Codable, CaseIterable {
     case getPublicKey = "get_public_key"
     case signEvent = "sign_event"
     case nip04Encrypt = "nip04_encrypt"
@@ -55,6 +58,13 @@ enum NostrSignerType: String, Codable, CaseIterable {
     case nip44Decrypt = "nip44_decrypt"
     case getRelays = "get_relays"
     case decryptZapEvent = "decrypt_zap_event"
+}
+
+enum NostrSignerRequestType: String, Codable {
+    case actionExtension
+    case nostrSignerUrlScheme
+    case nip07
+    case nip46
 }
 
 enum NostrSignerReturnType: String, Codable {
