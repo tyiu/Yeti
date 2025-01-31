@@ -22,14 +22,13 @@ class YetiActionExtensionViewController: UIViewController {
             return
         }
 
-
         let textDataType = UTType.plainText.identifier
         guard itemProvider.hasItemConformingToTypeIdentifier(textDataType) else {
             done()
             return
         }
 
-        itemProvider.loadItem(forTypeIdentifier: textDataType , options: nil) { (providedText, error) in
+        itemProvider.loadItem(forTypeIdentifier: textDataType, options: nil) { (providedText, error) in
             if let error {
                 self.done(signedEvent: error.localizedDescription)
                 return
@@ -44,9 +43,9 @@ class YetiActionExtensionViewController: UIViewController {
                     // set up constraints
                     contentView.view.translatesAutoresizingMaskIntoConstraints = false
                     contentView.view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-                    contentView.view.bottomAnchor.constraint (equalTo: self.view.bottomAnchor).isActive = true
+                    contentView.view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
                     contentView.view.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-                    contentView.view.rightAnchor.constraint (equalTo: self.view.rightAnchor).isActive = true
+                    contentView.view.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
                 }
             } else {
                 self.done()
@@ -54,7 +53,11 @@ class YetiActionExtensionViewController: UIViewController {
             }
         }
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("done"), object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("done"),
+            object: nil,
+            queue: nil
+        ) { notification in
             DispatchQueue.main.async {
                 self.done(signedEvent: notification.object as? String)
             }
